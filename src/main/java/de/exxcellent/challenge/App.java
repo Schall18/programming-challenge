@@ -12,7 +12,7 @@ import java.util.Map;
  */
 public final class App {
 
-    public static final String WEATHER_FILE = "src/main/java/resources/de.exxcellent.challenge.weather.csv";
+    public static final String WEATHER_FILE = "src/main/resources/de/exxcellent/challenge/weather.csv";
 
     /**
      * This is the main entry method of your program.
@@ -24,8 +24,12 @@ public final class App {
         // Your preparation code …
         FileReader reader = new CsvReader(",");
         try {
-            List<Map<String, String>> csv = reader.read_file(WEATHER_FILE);
-        } catch (FileNotFoundException | InvalidFileExeption e) {
+            List<Map<String, String>> plain_weather_data = reader.read_file(WEATHER_FILE);
+            WeatherDataset weather_dataset = new WeatherDataset(plain_weather_data);
+            String day_with_smallest_temperature_diff =
+                    weather_dataset.get_day_with_smallest_temperature_diff();
+            System.out.printf("Day with smallest temperature spread : %s%n", day_with_smallest_temperature_diff);
+        } catch (FileNotFoundException | InvalidFileExeption | MissingKeyExeption e) {
             //terminate program in the case we occured an exeption
             System.out.println(e.getMessage());
             return;

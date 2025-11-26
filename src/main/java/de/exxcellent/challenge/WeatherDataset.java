@@ -14,7 +14,7 @@ public class WeatherDataset {
 
     /// calls get_smallest_diff_from_cols for key kay at MxT-MnT
     public String get_day_with_smallest_temperature_diff() throws MissingKeyExeption {
-        return get_smallest_diff_from_cols("MxT", "MnT", "day");
+        return get_smallest_diff_from_cols("MxT", "MnT", "Day");
     }
 
     /// searches in data for entry with value at keys minuend_key-subtrahend_key minimal. result_key

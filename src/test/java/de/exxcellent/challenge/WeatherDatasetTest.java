@@ -18,14 +18,14 @@ public class WeatherDatasetTest {
 
         //map for first row
         Map<String, String> first_row = new HashMap<>();
-        first_row.put("day", "1");
+        first_row.put("Day", "1");
         first_row.put("MxT", "2");
         first_row.put("MnT", "0");
         content.add(first_row);
 
         //map for second row
         Map<String, String> second_row = new HashMap<>();
-        second_row.put("day", "2");
+        second_row.put("Day", "2");
         second_row.put("MxT", "10");
         second_row.put("MnT", "3");
         content.add(second_row);
@@ -66,7 +66,7 @@ public class WeatherDatasetTest {
 
         //map for first row
         Map<String, String> first_row = new HashMap<>();
-        first_row.put("day","1");
+        first_row.put("Day","1");
         first_row.put("MxT", "1");
         first_row.put("MnT", "0");
         content.add(first_row);
@@ -81,7 +81,7 @@ public class WeatherDatasetTest {
         Exception exception = assertThrows(MissingKeyExeption.class, dataset::get_day_with_smallest_temperature_diff);
 
         String message = exception.getMessage();
-        assert(message.contains("Key day is missing in Row 2"));
+        assert(message.contains("Key Day is missing in Row 2"));
     }
 
 
@@ -91,14 +91,14 @@ public class WeatherDatasetTest {
 
         //map for first row
         Map<String, String> first_row = new HashMap<>();
-        first_row.put("day", "1");
+        first_row.put("Day", "1");
         first_row.put("MxT", "2");
         first_row.put("MnT", "0");
         content.add(first_row);
 
         //map for second row
         Map<String, String> second_row = new HashMap<>();
-        second_row.put("day", "2");
+        second_row.put("Day", "2");
         second_row.put("MxT", "NaN");
         second_row.put("MnT", "3");
         content.add(second_row);
