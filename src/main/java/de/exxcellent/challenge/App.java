@@ -1,5 +1,6 @@
 package de.exxcellent.challenge;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Map;
 
@@ -21,7 +22,12 @@ public final class App {
 
         // Your preparation code …
         FileReader reader = new CsvReader();
-        List<Map<String,String>> csv = reader.read_file(WEATHER_FILE);
+        try {
+            List<Map<String, String>> csv = reader.read_file(WEATHER_FILE);
+        }
+        catch(FileNotFoundException e) {
+            //TODO
+        }
         String dayWithSmallestTempSpread = "Someday";     // Your day analysis function call …
         System.out.printf("Day with smallest temperature spread : %s%n", dayWithSmallestTempSpread);
 

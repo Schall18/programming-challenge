@@ -14,28 +14,33 @@ public class CsvReaderTest {
 
     @Test
     void test_valid_csv() {
-        String filename = "";
+        String filename = "src/test/resources/de/exxcellent/challenge/test.csv";
         CsvReader reader = new CsvReader();
-        List<Map<String,String>> actual_content = reader.read_file(filename);
+        try {
+            List<Map<String, String>> actual_content = reader.read_file(filename);
 
-        List<Map<String,String>> expected_content = new ArrayList<>();
-        Map<String, String> first_row = new HashMap<>();
-        first_row.put("c1", "1");
-        first_row.put("c2", "Hallo");
-        first_row.put("c3", "Welt");
-        expected_content.add(first_row);
+            List<Map<String, String>> expected_content = new ArrayList<>();
+            Map<String, String> first_row = new HashMap<>();
+            first_row.put("c1", "1");
+            first_row.put("c2", "Hallo");
+            first_row.put("c3", "Welt");
+            expected_content.add(first_row);
 
-        Map<String, String> second_row = new HashMap<>();
-        second_row.put("c1", "2");
-        second_row.put("c2", "Line");
-        second_row.put("c3", "Two");
-        expected_content.add(second_row);
+            Map<String, String> second_row = new HashMap<>();
+            second_row.put("c1", "2");
+            second_row.put("c2", "Line");
+            second_row.put("c3", "Two");
+            expected_content.add(second_row);
 
-        assertSame(expected_content.size(),actual_content.size());
-        for (int i=0; i<expected_content.size(); i++) {
-            Map<String, String> expected_row = expected_content.get(i);
-            Map<String,String> actual_row = actual_content.get(i);
-            assertEquals(expected_row, actual_row);
+            assertSame(expected_content.size(), actual_content.size());
+            for (int i = 0; i < expected_content.size(); i++) {
+                Map<String, String> expected_row = expected_content.get(i);
+                Map<String, String> actual_row = actual_content.get(i);
+                assertEquals(expected_row, actual_row);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            assert(false);
         }
     }
 
