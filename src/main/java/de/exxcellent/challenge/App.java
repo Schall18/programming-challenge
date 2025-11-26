@@ -25,7 +25,7 @@ public final class App {
         try {
             List<Map<String, String>> csv = reader.read_file(WEATHER_FILE);
         }
-        catch(FileNotFoundException e) {
+        catch(FileNotFoundException | InvalidFileExeption e) {
             //TODO
         }
         String dayWithSmallestTempSpread = "Someday";     // Your day analysis function call …

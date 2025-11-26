@@ -56,7 +56,7 @@ public class CsvReaderTest {
     }
 
     @Test
-    void empty_csv() throws FileNotFoundException {
+    void empty_csv() throws FileNotFoundException, InvalidFileExeption {
         String filename = "src/test/resources/de/exxcellent/challenge/empty.csv";
         CsvReader reader = new CsvReader();
 
@@ -67,7 +67,7 @@ public class CsvReaderTest {
     }
 
     @Test
-    void csv_with_only_header() throws FileNotFoundException {
+    void csv_with_only_header() throws FileNotFoundException, InvalidFileExeption {
         String filename = "src/test/resources/de/exxcellent/challenge/one_line.csv";
         CsvReader reader = new CsvReader();
 
