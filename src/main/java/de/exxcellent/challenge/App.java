@@ -16,17 +16,19 @@ public final class App {
 
     /**
      * This is the main entry method of your program.
+     *
      * @param args The CLI arguments passed
      */
     public static void main(String... args) {
 
         // Your preparation code …
-        FileReader reader = new CsvReader();
+        FileReader reader = new CsvReader(",");
         try {
             List<Map<String, String>> csv = reader.read_file(WEATHER_FILE);
-        }
-        catch(FileNotFoundException | InvalidFileExeption e) {
-            //TODO
+        } catch (FileNotFoundException | InvalidFileExeption e) {
+            //terminate program in the case we occured an exeption
+            System.out.println(e.getMessage());
+            return;
         }
         String dayWithSmallestTempSpread = "Someday";     // Your day analysis function call …
         System.out.printf("Day with smallest temperature spread : %s%n", dayWithSmallestTempSpread);
