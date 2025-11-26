@@ -2,6 +2,7 @@ package de.exxcellent.challenge;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -54,7 +55,50 @@ public class CsvReaderTest {
         assert(exception_message.contains(filename));
     }
 
+    @Test
+    void empty_csv() throws FileNotFoundException {
+        String filename = "src/test/resources/de/exxcellent/challenge/empty.csv";
+        CsvReader reader = new CsvReader();
 
-    //TODO: was passiert bei einer leeren Testfile bzw. einer Testfile aus nur 1 Zeile?
-    //TODO: was passiert bei einer Testfile mit zu vielen bzw. zu wenig Einträgen in einer Zeile?
+        List<Map<String,String>> actual = reader.read_file(filename);
+        List<Map<String,String>> expected = new ArrayList<>();
+
+        assertEquals(expected,actual);
+    }
+
+    @Test
+    void csv_with_only_header() throws FileNotFoundException {
+        String filename = "src/test/resources/de/exxcellent/challenge/one_line.csv";
+        CsvReader reader = new CsvReader();
+
+        List<Map<String,String>> actual = reader.read_file(filename);
+        List<Map<String,String>> expected = new ArrayList<>();
+
+        assertEquals(expected,actual);
+    }
+
+
+    /// tests a CSV containing a row with more columns than the header line
+    @Test
+    void first_invalid_csv_test() {
+        String filename = "src/test/resources/de/exxcellent/challenge/invalid1.csv";
+        CsvReader reader = new CsvReader();
+
+        Exception exception = assertThrows(InvalidFileExeption.class, () -> reader.read_file(filename));
+
+        String exception_message = exception.getMessage();
+        assert(exception_message.contains("The header line consists of 2 columns, but row 2 of 5 columns"));
+    }
+
+    /// tests a CSV containing a row with less columns than the header line
+    @Test
+    void second_invalid_csv_test() {
+        String filename = "src/test/resources/de/exxcellent/challenge/invalid2.csv";
+        CsvReader reader = new CsvReader();
+
+        Exception exception = assertThrows(InvalidFileExeption.class, () -> reader.read_file(filename));
+
+        String exception_message = exception.getMessage();
+        assert(exception_message.contains("The header line consists of 4 columns, but row 1 of 3 columns"));
+    }
 }
