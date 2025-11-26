@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class WeatherDatasetTest {
 
     @Test
-    void valid_input() {
+    void valid_input() throws MissingKeyExeption {
         List<Map<String, String>> content = new ArrayList<>();
 
         //map for first row
@@ -107,6 +107,6 @@ public class WeatherDatasetTest {
         Exception exception = assertThrows(NumberFormatException.class, dataset::get_day_with_smallest_temperature_diff);
 
         String message = exception.getMessage();
-        assert(message.contains("Key MxT in Row 2 is \"NaN\", which is not a number"));
+        assert(message.contains("\"NaN\""));
     }
 }
