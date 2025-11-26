@@ -2,13 +2,13 @@ package de.exxcellent.challenge;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CsvReaderTest {
 
@@ -38,4 +38,18 @@ public class CsvReaderTest {
             assertEquals(expected_row, actual_row);
         }
     }
+
+    @Test
+    void test_missing_file() {
+        CsvReader reader = new CsvReader();
+        String filename = "not_existing_file.csv";
+        Exception exception = assertThrows(IOException.class, () -> reader.read_file(filename));
+
+        String exception_message = exception.getMessage();
+        assert(exception_message.contains(filename));
+    }
+
+
+    //TODO: was passiert bei einer leeren Testfile bzw. einer Testfile aus nur 1 Zeile?
+    //TODO: was passiert bei einer Testfile mit zu vielen bzw. zu wenig Einträgen in einer Zeile?
 }
