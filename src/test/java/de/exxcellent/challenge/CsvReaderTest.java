@@ -19,7 +19,7 @@ public class CsvReaderTest {
         CsvReader reader = new CsvReader(",");
         try {
             List<Map<String, String>> actual_content = reader.read_file(filename);
-            List<Map<String, String>> expected_content = build_csv();
+            List<Map<String, String>> expected_content = build_expected_csv_content();
 
             //expected and actual must have same size and each element must be equal
             assertSame(expected_content.size(), actual_content.size());
@@ -35,7 +35,7 @@ public class CsvReaderTest {
     }
 
     /// builds a map, which we expect is build from the file test.csv
-    private List<Map<String, String>> build_csv() {
+    private List<Map<String, String>> build_expected_csv_content() {
         List<Map<String, String>> expected_content = new ArrayList<>();
 
         //map for first row
