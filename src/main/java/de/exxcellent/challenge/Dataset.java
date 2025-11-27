@@ -3,23 +3,18 @@ package de.exxcellent.challenge;
 import java.util.List;
 import java.util.Map;
 
-public class WeatherDataset {
-
+public class Dataset {
     private final List<Map<String,String>> data;
 
-    public WeatherDataset(List<Map<String,String>> data) {
+    public Dataset(List<Map<String,String>> data) {
         this.data = data;
     }
 
 
-    /// calls get_smallest_diff_from_cols for key kay at MxT-MnT
-    public String get_day_with_smallest_temperature_diff() throws MissingKeyExeption {
-        return get_smallest_diff_from_cols("MxT", "MnT", "Day");
-    }
 
     /// searches in data for entry with value at keys minuend_key-subtrahend_key minimal. result_key
     /// determines the key, whose value shall be returned of the found column
-    private String get_smallest_diff_from_cols(String minuend_key, String subtrahend_key, String result_key) throws MissingKeyExeption {
+    public String get_smallest_diff_from_cols(String minuend_key, String subtrahend_key, String result_key) throws MissingKeyExeption {
         int smallest_diff = Integer.MAX_VALUE;
         int smallest_diff_index = -1;
 
@@ -37,8 +32,9 @@ public class WeatherDataset {
             }
 
             //parsing error must be handled by caller
-            int current_diff = Integer.parseInt(current_row.get(minuend_key)) -
+            int current_diff_signed = Integer.parseInt(current_row.get(minuend_key)) -
                     Integer.parseInt(current_row.get(subtrahend_key));
+            int current_diff = Math.abs(current_diff_signed);
 
             if(current_diff < smallest_diff) {
                 smallest_diff_index = i;
