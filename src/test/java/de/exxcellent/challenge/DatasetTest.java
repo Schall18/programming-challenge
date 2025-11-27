@@ -10,7 +10,7 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class WeatherDatasetTest {
+public class DatasetTest {
 
     @Test
     void valid_input() throws MissingKeyExeption {
@@ -30,8 +30,8 @@ public class WeatherDatasetTest {
         second_row.put("MnT", "3");
         content.add(second_row);
 
-        WeatherDataset dataset = new WeatherDataset(content);
-        String result = dataset.get_day_with_smallest_temperature_diff();
+        Dataset dataset = new Dataset(content);
+        String result = dataset.get_smallest_diff_from_cols("MxT","MnT", "Day");
 
         assertEquals("1", result);
     }
@@ -52,8 +52,8 @@ public class WeatherDatasetTest {
         second_row.put("MnT", "3");
         content.add(second_row);
 
-        WeatherDataset dataset = new WeatherDataset(content);
-        Exception exception = assertThrows(MissingKeyExeption.class, dataset::get_day_with_smallest_temperature_diff);
+        Dataset dataset = new Dataset(content);
+        Exception exception = assertThrows(MissingKeyExeption.class, () -> dataset.get_smallest_diff_from_cols("MxT","MnT", "Day"));
 
         String message = exception.getMessage();
         assert(message.contains("Key MxT is missing in Row 1"));
@@ -77,8 +77,8 @@ public class WeatherDatasetTest {
         second_row.put("MnT", "3");
         content.add(second_row);
 
-        WeatherDataset dataset = new WeatherDataset(content);
-        Exception exception = assertThrows(MissingKeyExeption.class, dataset::get_day_with_smallest_temperature_diff);
+        Dataset dataset = new Dataset(content);
+        Exception exception = assertThrows(MissingKeyExeption.class, () -> dataset.get_smallest_diff_from_cols("MxT", "MnT", "Day"));
 
         String message = exception.getMessage();
         assert(message.contains("Key Day is missing in Row 2"));
@@ -103,8 +103,8 @@ public class WeatherDatasetTest {
         second_row.put("MnT", "3");
         content.add(second_row);
 
-        WeatherDataset dataset = new WeatherDataset(content);
-        Exception exception = assertThrows(NumberFormatException.class, dataset::get_day_with_smallest_temperature_diff);
+        Dataset dataset = new Dataset(content);
+        Exception exception = assertThrows(NumberFormatException.class, () -> dataset.get_smallest_diff_from_cols("MxT", "MnT", "Day"));
 
         String message = exception.getMessage();
         assert(message.contains("\"NaN\""));
