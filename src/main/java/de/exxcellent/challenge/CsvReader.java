@@ -18,6 +18,7 @@ public class CsvReader implements FileReader {
 
         List<Map<String, String>> result = new ArrayList<>();
 
+        //first line of CSV determines the column names, i.e. the Keys of our map
         List<String> firstLine;
         if (scanner.hasNextLine()) {
             String first_line_as_string = scanner.nextLine();
@@ -28,10 +29,11 @@ public class CsvReader implements FileReader {
         }
 
 
+        //iterate over each row of the CSV and append with values from the row to the result
         int row_counter = 1;
         while (scanner.hasNextLine()) {
-            String line_as_string = scanner.nextLine();
-            Map<String, String> next_row = line_to_map(line_as_string, firstLine, row_counter);
+            String row_as_string = scanner.nextLine();
+            Map<String, String> next_row = parse_row_into_map(row_as_string, firstLine, row_counter);
             result.add(next_row);
             row_counter++;
         }
@@ -41,16 +43,18 @@ public class CsvReader implements FileReader {
 
     /// method creates from headerline and the next line as String a map of the following form:
     /// {"header1": "value1", "header2":"value2",...}
-    private Map<String, String> line_to_map(String line_as_string, List<String> header_line, int row_counter) throws InvalidFileExeption {
-        List<String> line = Arrays.asList(line_as_string.split(delimiter));
-        if (line.size() != header_line.size()) {
-            String message = "CSV file with invalid content: The header line consists of " + header_line.size() + " columns, but row " + row_counter + " of " + line.size() + " columns";
+    private Map<String, String> parse_row_into_map(String row_as_string, List<String> header_row, int row_counter) throws InvalidFileExeption {
+        List<String> row = Arrays.asList(row_as_string.split(delimiter));
+        //check that all row has same length as header. If a row of different length is detected, throw InvalidFileExeption
+        if (row.size() != header_row.size()) {
+            String message = "CSV file with invalid content: The header row consists of " + header_row.size() + " columns, but row " + row_counter + " of " + row.size() + " columns";
             throw new InvalidFileExeption(message);
         }
 
+        //create new map
         Map<String, String> next_row = new HashMap<>();
-        for (int i = 0; i < line.size(); i++) {
-            next_row.put(header_line.get(i), line.get(i));
+        for (int i = 0; i < row.size(); i++) {
+            next_row.put(header_row.get(i), row.get(i));
         }
         return next_row;
     }

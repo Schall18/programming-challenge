@@ -96,7 +96,7 @@ public class CsvReaderTest {
         Exception exception = assertThrows(InvalidFileExeption.class, () -> reader.read_file(filename));
 
         String exception_message = exception.getMessage();
-        assert (exception_message.contains("The header line consists of 2 columns, but row 2 of 5 columns"));
+        assert (exception_message.contains("The header row consists of 2 columns, but row 2 of 5 columns"));
     }
 
     /// tests a CSV containing a row with less columns than the header line
@@ -108,6 +108,6 @@ public class CsvReaderTest {
         Exception exception = assertThrows(InvalidFileExeption.class, () -> reader.read_file(filename));
 
         String exception_message = exception.getMessage();
-        assert (exception_message.contains("The header line consists of 4 columns, but row 1 of 3 columns"));
+        assert (exception_message.contains("The header row consists of 4 columns, but row 1 of 3 columns"));
     }
 }

@@ -31,7 +31,7 @@ public class DatasetTest {
         content.add(second_row);
 
         Dataset dataset = new Dataset(content);
-        String result = dataset.get_smallest_diff_from_cols("MxT","MnT", "Day");
+        String result = dataset.get_smallest_diff_from_cols("MxT", "MnT", "Day");
 
         assertEquals("1", result);
     }
@@ -42,7 +42,7 @@ public class DatasetTest {
 
         //map for first row
         Map<String, String> first_row = new HashMap<>();
-        first_row.put("day","1");
+        first_row.put("day", "1");
         first_row.put("MnT", "0");
         content.add(first_row);
 
@@ -53,10 +53,10 @@ public class DatasetTest {
         content.add(second_row);
 
         Dataset dataset = new Dataset(content);
-        Exception exception = assertThrows(MissingKeyExeption.class, () -> dataset.get_smallest_diff_from_cols("MxT","MnT", "Day"));
+        Exception exception = assertThrows(MissingKeyExeption.class, () -> dataset.get_smallest_diff_from_cols("MxT", "MnT", "Day"));
 
         String message = exception.getMessage();
-        assert(message.contains("Key MxT is missing in Row 1"));
+        assert (message.contains("Key MxT is missing in Row 1"));
     }
 
 
@@ -66,7 +66,7 @@ public class DatasetTest {
 
         //map for first row
         Map<String, String> first_row = new HashMap<>();
-        first_row.put("Day","1");
+        first_row.put("Day", "1");
         first_row.put("MxT", "1");
         first_row.put("MnT", "0");
         content.add(first_row);
@@ -81,7 +81,7 @@ public class DatasetTest {
         Exception exception = assertThrows(MissingKeyExeption.class, () -> dataset.get_smallest_diff_from_cols("MxT", "MnT", "Day"));
 
         String message = exception.getMessage();
-        assert(message.contains("Key Day is missing in Row 2"));
+        assert (message.contains("Key Day is missing in Row 2"));
     }
 
 
@@ -107,6 +107,6 @@ public class DatasetTest {
         Exception exception = assertThrows(NumberFormatException.class, () -> dataset.get_smallest_diff_from_cols("MxT", "MnT", "Day"));
 
         String message = exception.getMessage();
-        assert(message.contains("\"NaN\""));
+        assert (message.contains("\"NaN\""));
     }
 }

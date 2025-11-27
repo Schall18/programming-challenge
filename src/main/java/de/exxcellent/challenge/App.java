@@ -22,7 +22,7 @@ public final class App {
      */
     public static void main(String... args) {
 
-        // Your preparation code …
+        // Weather challenge
         FileReader reader = new CsvReader(",");
         try {
             List<Map<String, String>> plain_weather_data = reader.read_file(WEATHER_FILE);
@@ -30,18 +30,20 @@ public final class App {
             String day_with_smallest_temperature_diff =
                     weather_dataset.get_smallest_diff_from_cols("MxT", "MnT", "Day");
             System.out.printf("Day with smallest temperature spread : %s%n", day_with_smallest_temperature_diff);
-        } catch (FileNotFoundException | InvalidFileExeption | MissingKeyExeption e) {
+        } catch (FileNotFoundException | InvalidFileExeption | MissingKeyExeption | NumberFormatException e) {
             //terminate program in the case we occured an exeption
             System.out.println(e.getMessage());
         }
 
+
+        //Football challenge
         try {
             List<Map<String, String>> plain_football_data = reader.read_file(FOOTBALL_FILE);
             Dataset weather_dataset = new Dataset(plain_football_data);
-            String day_with_smallest_temperature_diff =
+            String team_with_smallest_goal_distance =
                     weather_dataset.get_smallest_diff_from_cols("Goals", "Goals Allowed", "Team");
-            System.out.printf("Team with smallest goal spread       : %s%n", day_with_smallest_temperature_diff);
-        } catch (FileNotFoundException | InvalidFileExeption | MissingKeyExeption e) {
+            System.out.printf("Team with smallest goal spread       : %s%n", team_with_smallest_goal_distance);
+        } catch (FileNotFoundException | InvalidFileExeption | MissingKeyExeption | NumberFormatException e) {
             //terminate program in the case we occured an exeption
             System.out.println(e.getMessage());
         }
